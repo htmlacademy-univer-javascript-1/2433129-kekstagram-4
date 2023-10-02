@@ -21,6 +21,6 @@ const getNumbersFromString = (string) => {
   return +result;
 };
 
-console.log(getNumbersFromString('146.15dwawf789awd'));
+getNumbersFromString('146.15dwawf789awd');
 IsPalindrome('awa');
 checkLength('16156', 4);
