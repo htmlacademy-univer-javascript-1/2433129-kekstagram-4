@@ -1,13 +1,16 @@
 const checkLength = (strValue, maxLength) => strValue.length <= maxLength;
-const IsPalindrome = (string) =>
+
+const isPalindrome = (string) =>
 {
   const normalizedString = string.replaceAll(' ', '').toLowerCase();
   let emptyString = '';
   for (let i = normalizedString.length - 1; i >= 0; i--) {
     emptyString += normalizedString.at(i);
   }
+
   return emptyString === normalizedString;
 };
+
 const getNumbersFromString = (string) => {
   let result = '';
   for (let i = 0; i < string.length; i++) {
@@ -18,9 +21,10 @@ const getNumbersFromString = (string) => {
   if (result.length === 0) {
     return NaN;
   }
+
   return +result;
 };
 
 getNumbersFromString('146.15dwawf789awd');
-IsPalindrome('awa');
+isPalindrome('awa');
 checkLength('16156', 4);
