@@ -1,4 +1,4 @@
-const usedId = [];
+const usedCommentId = [];
 const sentences = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -14,9 +14,9 @@ const names = [
 const randomInt = (min, max) =>  Math.floor(min + Math.random() * (max + 1 - min));
 
 
-function generateComment () {
+const generateComment = ()  => {
   let id = randomInt(15, 200);
-  usedId.push(id);
+  usedCommentId.push(id);
   const messages = [];
   const name = names[randomInt(1, names.length - 1)];
   const avatar = `img/avatar-{${randomInt(1, 6)}}.svg`;
@@ -24,8 +24,8 @@ function generateComment () {
   for (let i = 1; i <= countOfSentences; i++) {
     messages.push(sentences[randomInt(1, names.length - 1)]);
   }
-  if (usedId.find((index) => index === id)) {
-    id = randomInt(Math.max(usedId), Math.max(usedId) + 1);
+  if (usedCommentId.find((index) => index === id)) {
+    id = randomInt(Math.max(usedCommentId), Math.max(usedCommentId) + 1);
   }
 
   return {
@@ -34,29 +34,31 @@ function generateComment () {
     message: messages,
     name: name
   };
-}
+};
+
+const generateObject = (number) => {
+  const id = number;
+  const url = `photos/{${number}}.jpg`;
+  const description = 'any info';
+  const likes = randomInt(1, 200);
+  const comments = [];
+  for (let j = 0; j <= randomInt(0, 30); j++) {
+    comments.push(generateComment());
+  }
+  return {
+    id: id,
+    url: url,
+    description: description,
+    likes: likes,
+    comments: comments
+  };
+};
 
 const generateList = () => {
   const objects = [];
   for (let i = 1; i <= 25; i++) {
-    const id = i;
-    const url = `photos/${{i}}.jpg`;
-    const description = 'any info';
-    const likes = randomInt(1, 200);
-    const comments = [];
-    for (let j = 0; i <= randomInt(0, 30); j++) {
-      comments.push(generateComment());
-    }
-    objects.push({
-      id: id,
-      url: url,
-      description: description,
-      likes: likes,
-      comments: comments
-    });
+    objects.push(generateObject(i));
   }
 
   return objects;
 };
-
-
