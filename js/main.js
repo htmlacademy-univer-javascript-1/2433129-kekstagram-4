@@ -1,19 +1,21 @@
-const photoId = {
+const PHOTO_ID = {
   MIN: 1,
   MAX: 25
 };
-const likes = {
+const LIKES_COUNT = {
   MIN: 15,
   MAX: 200
 };
-const countOfComments = {
+const COMMENTS_COUNT = {
   MIN: 0,
   MAX: 30
 };
-const countOfMessages = {
+const MESSAGES_COUNT = {
   MIN: 1,
   MAX: 2
 };
+
+const OBJECTS_COUNT = 25;
 
 const SENTENCES = [
   'Всё отлично!',
@@ -34,8 +36,8 @@ const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 const getComment = (_, id)  => {
   const comment =  {
     id: id,
-    avatar: `img/avatar-{${getRandomInt(photoId.MIN, photoId.MAX)}}.svg`,
-    message: shuffle(SENTENCES).slice(0, getRandomInt(countOfMessages.MIN, countOfMessages.MAX)),
+    avatar: `img/avatar-{${getRandomInt(PHOTO_ID.MIN, PHOTO_ID.MAX)}}.svg`,
+    message: shuffle(SENTENCES).slice(0, getRandomInt(MESSAGES_COUNT.MIN, MESSAGES_COUNT.MAX)),
     name: NAMES[getRandomInt(0, NAMES.length - 1)]
   };
 
@@ -48,13 +50,13 @@ const getPost = (_, id) => {
     id: id,
     url: `photos/{${id}}.jpg`,
     description: `any info about id: ${id}`,
-    likes: getRandomInt(likes.MIN, likes.MAX),
-    comments: Array.from({ length: getRandomInt(countOfComments.MIN, countOfComments.MAX) }, getComment)
+    likes: getRandomInt(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
+    comments: Array.from({ length: getRandomInt(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX) }, getComment)
   };
 
   return post;
 };
 
-const generateListOfObjects = () => Array.from({ length: 25 }, getPost);
+const generatePosts = () => Array.from({ length: OBJECTS_COUNT }, getPost);
 
-generateListOfObjects();
+generatePosts();
