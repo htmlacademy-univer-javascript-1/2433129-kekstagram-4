@@ -1,16 +1,16 @@
-const PHOTO_ID = {
+const PhotoId = {
   MIN: 1,
   MAX: 25
 };
-const LIKES_COUNT = {
+const LikeCount  = {
   MIN: 15,
   MAX: 200
 };
-const COMMENTS_COUNT = {
+const CountOfComments  = {
   MIN: 0,
   MAX: 30
 };
-const MESSAGES_COUNT = {
+const CountOfMessages  = {
   MIN: 1,
   MAX: 2
 };
@@ -36,8 +36,8 @@ const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 const getComment = (_, id)  => {
   const comment =  {
     id: id,
-    avatar: `img/avatar-{${getRandomInt(PHOTO_ID.MIN, PHOTO_ID.MAX)}}.svg`,
-    message: shuffle(SENTENCES).slice(0, getRandomInt(MESSAGES_COUNT.MIN, MESSAGES_COUNT.MAX)),
+    avatar: `img/avatar-{${getRandomInt(PhotoId.MIN, PhotoId.MAX)}}.svg`,
+    message: shuffle(SENTENCES).slice(0, getRandomInt(CountOfMessages.MIN, CountOfMessages.MAX)),
     name: NAMES[getRandomInt(0, NAMES.length - 1)]
   };
 
@@ -50,8 +50,8 @@ const getPost = (_, id) => {
     id: id,
     url: `photos/{${id}}.jpg`,
     description: `any info about id: ${id}`,
-    likes: getRandomInt(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
-    comments: Array.from({ length: getRandomInt(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX) }, getComment)
+    likes: getRandomInt(LikeCount.MIN, LikeCount.MAX),
+    comments: Array.from({ length: getRandomInt(CountOfComments.MIN, CountOfComments.MAX) }, getComment)
   };
 
   return post;
