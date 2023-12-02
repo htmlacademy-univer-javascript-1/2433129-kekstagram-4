@@ -1,10 +1,10 @@
-const bigPicture = document.querySelector('.big-picture');
-const socialComments = document.querySelector('.social__comments');
-const socialComment = socialComments.querySelector('.social__comment');
 const body = document.querySelector('body');
-const cancelButton = document.querySelector('.big-picture__cancel');
-const socialCommentsCount = document.querySelector('.social__comment-count');
-const commentsLoader = document.querySelector('.comments-loader');
+const bigPicture = body.querySelector('.big-picture');
+const socialCommentsCount = bigPicture.querySelector('.social__comment-count');
+const cancelButton = bigPicture.querySelector('.big-picture__cancel');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
+const socialComments = socialCommentsCount.querySelector('.social__comments');
+const socialComment = socialComments.querySelector('.social__comment');
 
 const createComment = (obj) => {
   const comment = socialComment.cloneNode(true);
@@ -29,18 +29,18 @@ const displayComments = (comments) => {
 const hideBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', cancelByEscape);
-  cancelButton.removeEventListener('click', cancelByClick);
+  document.removeEventListener('keydown', onDocumentKeydown );
+  cancelButton.removeEventListener('click', onCancelButtonClick );
 };
 
-function cancelByEscape (evt) {
+function onDocumentKeydown  (evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     hideBigPicture();
   }
 }
 
-function cancelByClick () {
+function onCancelButtonClick  () {
   hideBigPicture();
 }
 
@@ -56,8 +56,8 @@ const showBigPicture = (data) => {
   body.classList.add('modal-open');
   commentsLoader.classList.add('hidden');
   socialCommentsCount.classList.add('hidden');
-  document.addEventListener('keydown', cancelByEscape);
-  cancelButton.addEventListener('click', cancelByClick);
+  document.addEventListener('keydown', onDocumentKeydown );
+  cancelButton.addEventListener('click', onCancelButtonClick );
 
   displayPictureData(data);
   displayComments(data.comments);
