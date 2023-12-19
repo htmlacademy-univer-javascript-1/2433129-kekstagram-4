@@ -1,5 +1,4 @@
-
-const PORTION_COMMENTS_SHOWN = 5;
+import { PORTION_COMMENTS_SHOWN } from './constants.js';
 
 const body = document.querySelector('body');
 const bigPicture = body.querySelector('.big-picture');
