@@ -1,8 +1,18 @@
-import { generatePosts } from './data.js';
 import { displayMniatures } from './display-miniatures.js';
-import { openEditPopup } from './modal-editor.js';
+import { openEditPopup, setFormSubmit, hideForm } from './modal-editor.js';
+import { getData } from './api.js';
+import { showAlert } from './utils.js';
 
-const posts = generatePosts();
+getData()
+  .then((thumbnails) => {
+    displayMniatures(thumbnails);
+  })
+  .catch(
+    (err) => {
+      showAlert(err.message);
+    }
+  );
 
-displayMniatures(posts);
+setFormSubmit(hideForm);
+
 openEditPopup();
