@@ -18,4 +18,12 @@ export const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Отправляю...'
 };
-export const ALERT_SHOW_TIME = 5000;
+export const ALERT_TIME = 5000;
+export const RANDOM_NUMBER_PHOTOS = 10;
+export const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
+export const HIDDEN_CONTAINER_CLASS = 'img-filters--inactive';
+export const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
+};

@@ -4,6 +4,7 @@ import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './upload-status-message.js';
 import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
 
+
 const documentBody = document.querySelector('body');
 const form = documentBody.querySelector('.img-upload__form');
 const editForm = form.querySelector('.img-upload__overlay');
