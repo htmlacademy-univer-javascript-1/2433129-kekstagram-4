@@ -1,5 +1,5 @@
 export const COUNT_PHOTOS = 25;
-export const COUNT_OF_COMMENTS_SHOWN = 5;
+export const COUNT_OF_COMMENTS = 5;
 export const MAX_COUNT_HASHTAG = 5;
 export const HASTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 export const ZOOM_STEP = 25;
@@ -18,4 +18,12 @@ export const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Отправляю...'
 };
-export const ALERT_SHOW_TIME = 5000;
+export const ALERT_TIME = 5000;
+export const RANDOM_NUMBER_PHOTOS = 10;
+export const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
+export const HIDDEN_CONTAINER_CLASS = 'img-filters--inactive';
+export const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed'
+};

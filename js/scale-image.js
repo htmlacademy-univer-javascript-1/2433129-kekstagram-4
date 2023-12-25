@@ -6,41 +6,41 @@ const imageElement = documentBody.querySelector('.my-image-js');
 const minusSizeButton = documentBody.querySelector('.scale__control--smaller');
 const plusSizeButton = documentBody.querySelector('.scale__control--bigger');
 
-const zoomImage  = (value) => {
+const scaleImage = (value) => {
   imageElement.style.transform=`scale(${value/100})`;
   sizeField.value = `${value}%`;
 };
 
-const onDecreaseSizeButtonCLick = (evt) => {
+const onMinusSizeButtonCLick = (evt) => {
   evt.preventDefault();
   if(parseInt(sizeField.value, 10) > MINIMUM_SCALE){
     const currentSize = parseInt(sizeField.value, 10);
     const newSize = currentSize - ZOOM_STEP;
-    zoomImage (newSize);
+    scaleImage(newSize);
   }
 };
 
-const onIncreaseSizeButtonClick = (evt) => {
+const onPlusSizeButtonClick = (evt) => {
   evt.preventDefault();
   if(parseInt(sizeField.value, 10) < MAXIMUM_SCALE){
     const currentSize = parseInt(sizeField.value, 10);
     const newSize = currentSize + ZOOM_STEP;
-    zoomImage (newSize);
+    scaleImage(newSize);
   }
 };
 
-const resetScale = () => {
-  zoomImage (MAXIMUM_SCALE);
+const resetScaleImage = () => {
+  scaleImage(MAXIMUM_SCALE);
 };
 
-const setupZoom = () => {
-  plusSizeButton.addEventListener('click', onIncreaseSizeButtonClick );
-  minusSizeButton.addEventListener('click', onDecreaseSizeButtonCLick );
+const setupScaleImage = () => {
+  plusSizeButton.addEventListener('click', onPlusSizeButtonClick);
+  minusSizeButton.addEventListener('click', onMinusSizeButtonCLick);
 };
 
-const removeZoom = () => {
-  plusSizeButton.removeEventListener('click', onIncreaseSizeButtonClick );
-  minusSizeButton.removeEventListener('click', onDecreaseSizeButtonCLick );
+const removeScaleImage = () => {
+  plusSizeButton.removeEventListener('click', onPlusSizeButtonClick);
+  minusSizeButton.removeEventListener('click', onMinusSizeButtonCLick);
 };
 
-export { setupZoom as setupScaleImage, removeZoom, resetScale };
+export { setupScaleImage, removeScaleImage, resetScaleImage };

@@ -1,6 +1,5 @@
 import { BASE_URL, Route, Error } from './constants.js';
 
-
 const loadData = (route, errorMessage, method = 'GET', body = null) =>
   fetch(`${BASE_URL}${route}`,{method, body})
     .then((response) => {

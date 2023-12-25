@@ -36,28 +36,28 @@ const Effect = {
   }
 };
 
-const body = document.querySelector('body');
-const img = body.querySelector('.my-image-js');
-const effectLevel = body.querySelector('.img-upload__effect-level');
-const slider = body.querySelector('.effect-level__slider');
-const effectValue = body.querySelector('.effect-level__value');
-const effectNoneButton = body.querySelector('#effect-none');
-const effectChromeButton = body.querySelector('#effect-chrome');
-const effectSepiaButton = body.querySelector('#effect-sepia');
-const effectMarvinButton = body.querySelector('#effect-marvin');
-const effectPhobosButton = body.querySelector('#effect-phobos');
-const effectHeatButton = body.querySelector('#effect-heat');
+const documentBody = document.querySelector('body');
+const imageElement = documentBody.querySelector('.my-image-js');
+const sliderContainer = documentBody.querySelector('.img-upload__effect-level');
+const sliderElement = documentBody.querySelector('.effect-level__slider');
+const effectValueField = documentBody.querySelector('.effect-level__value');
+const effectNoneButton = documentBody.querySelector('#effect-none');
+const effectChromeButton = documentBody.querySelector('#effect-chrome');
+const effectSepiaButton = documentBody.querySelector('#effect-sepia');
+const effectMarvinButton = documentBody.querySelector('#effect-marvin');
+const effectPhobosButton = documentBody.querySelector('#effect-phobos');
+const effectHeatButton = documentBody.querySelector('#effect-heat');
 
 const resetEffectImage = () => {
-  img.style.filter = 'none';
-  effectLevel.classList.add('hidden');
+  imageElement.style.filter = 'none';
+  sliderContainer.classList.add('hidden');
 };
 
 const showSlider = () => {
-  effectLevel.classList.remove('hidden');
+  sliderContainer.classList.remove('hidden');
 };
 
-noUiSlider.create(slider, {
+noUiSlider.create(sliderElement, {
   range: {
     min: 0,
     max: 100,
@@ -68,7 +68,7 @@ noUiSlider.create(slider, {
 });
 
 const updateSlider = (minValue, maxValue, step, style, unit) => {
-  slider.noUiSlider.updateOptions({
+  sliderElement.noUiSlider.updateOptions({
     range: {
       min: minValue,
       max: maxValue,
@@ -76,9 +76,9 @@ const updateSlider = (minValue, maxValue, step, style, unit) => {
     step: step,
     start: maxValue,
   });
-  slider.noUiSlider.on('update', () => {
-    effectValue.value = slider.noUiSlider.get();
-    img.style.filter = `${style}(${effectValue.value}${unit})`;
+  sliderElement.noUiSlider.on('update', () => {
+    effectValueField.value = sliderElement.noUiSlider.get();
+    imageElement.style.filter = `${style}(${effectValueField.value}${unit})`;
   });
 };
 

@@ -1,6 +1,4 @@
-import {ALERT_SHOW_TIME} from './constants.js';
-
-export const getRandomInt = (min, max) =>  Math.floor(min + Math.random() * (max + 1 - min));
+import { ALERT_TIME } from './constants.js';
 
 export const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -20,5 +18,14 @@ export const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, ALERT_SHOW_TIME);
+  }, ALERT_TIME);
 };
+
+export const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+

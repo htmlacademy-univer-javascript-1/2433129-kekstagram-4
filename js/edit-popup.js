@@ -1,8 +1,9 @@
-import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
-import { resetEffectImage, setupEffectImage, removeEffectImage } from './image-effect.js';
-import { resetScaleImage, setupScaleImage, removeScaleImage } from './zoom-image.js';
+import { resetEffectImage, setupEffectImage, removeEffectImage } from './effect-image.js';
+import { resetScaleImage, setupScaleImage, removeScaleImage } from './scale-image.js';
 import { sendData } from './api.js';
 import { showSuccessMessage, showErrorMessage } from './upload-status-message.js';
+import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
+
 
 const documentBody = document.querySelector('body');
 const form = documentBody.querySelector('.img-upload__form');
@@ -43,20 +44,18 @@ const hideForm = () => {
 
 const extarctHastag = (value) => value.trim().split(' ').filter((element) => element.length > 0);
 
-const isHastagValid = (value) => extarctHastag(value).every((element) => HASTAG_REGEX.test(element));
+const isValidHastag = (value) => extarctHastag(value).every((element) => HASTAG_REGEX.test(element));
 
-const checkHastagLength = (value) => extarctHastag(value).length <= MAX_COUNT_HASHTAG;
+const isAmountHastag = (value) => extarctHastag(value).length <= MAX_COUNT_HASHTAG;
 
-const isHastagUnique = (value) => {
+const isUniqueHastag = (value) => {
   const oneCaseHastags = extarctHastag(value).map((element) => element.toLowerCase());
   return new Set(oneCaseHastags).size === oneCaseHastags.length;
 };
 
-
-pristine.addValidator(hashtagField, checkHastagLength, `Нельзя вводить более ${MAX_COUNT_HASHTAG} хештегов :-(`);
-pristine.addValidator(hashtagField, isHastagValid, 'Хештег невалиден :-(');
-pristine.addValidator(hashtagField, isHastagUnique, 'Хештеги не должны повторяться :-(');
-
+pristine.addValidator(hashtagField, isAmountHastag, `Нельзя вводить более ${MAX_COUNT_HASHTAG} хештегов :-(`);
+pristine.addValidator(hashtagField, isValidHastag, 'Хештег невалиден :-(');
+pristine.addValidator(hashtagField, isUniqueHastag, 'Хештеги не должны повторяться :-(');
 
 function onDocumentKeydown (evt) {
   if (evt.key === 'Escape' && document.activeElement !== hashtagField
@@ -79,16 +78,16 @@ function onCloseButtonClick (evt) {
   hideForm();
 }
 
-const openEditModal = () => {
+const openEditPopup = () => {
   imageLoadingField.addEventListener('change', onImageLoadingFieldChange);
 };
 
-const lockSubmitButton = () => {
+const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
 };
 
-const unlockSubmitButton = () => {
+const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = SubmitButtonText.IDLE;
 };
@@ -98,7 +97,7 @@ const setFormSubmit = (onSuccess) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      lockSubmitButton();
+      blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
         .then(showSuccessMessage)
@@ -106,9 +105,9 @@ const setFormSubmit = (onSuccess) => {
           showErrorMessage();
         }
         )
-        .finally(unlockSubmitButton);
+        .finally(unblockSubmitButton);
     }
   });
 };
 
-export { openEditModal, setFormSubmit, hideForm, onDocumentKeydown };
+export { openEditPopup, setFormSubmit, hideForm, onDocumentKeydown };
