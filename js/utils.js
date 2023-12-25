@@ -1,6 +1,4 @@
-import {ALERT_SHOW_TIME} from './constants.js';
-
-export const getRandomInt = (min, max) =>  Math.floor(min + Math.random() * (max + 1 - min));
+import { ALERT_SHOW_TIME } from './constants.js';
 
 export const showAlert = (message) => {
   const alertContainer = document.createElement('div');

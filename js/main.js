@@ -1,11 +1,11 @@
-import { displayPictures } from './pictures.js';
-import { openEditModal, setFormSubmit, hideForm } from './modal-editor.js';
+import { renderGallery } from './gallery.js';
+import { openEditPopup, setFormSubmit, hideForm } from './edit-popup.js';
 import { getData } from './api.js';
-import { showAlert } from './util.js';
+import { showAlert } from './utils.js';
 
 getData()
   .then((thumbnails) => {
-    displayPictures(thumbnails);
+    renderGallery(thumbnails);
   })
   .catch(
     (err) => {
@@ -15,4 +15,4 @@ getData()
 
 setFormSubmit(hideForm);
 
-openEditModal();
+openEditPopup();

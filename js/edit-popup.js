@@ -1,8 +1,8 @@
-import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
-import { resetEffect, setupEffect, removeEffect } from './image-effect.js';
-import { resetScale, setupZoom, removeZoom } from './zoom-img.js';
+import { resetEffectImage, setupEffectImage, removeEffectImage } from './effect-image.js';
+import { resetScaleImage, setupScaleImage, removeScaleImage } from './scale-image.js';
 import { sendData } from './api.js';
-import { showSuccessMessage, showErrorMessage } from './upload-message-status.js';
+import { showSuccessMessage, showErrorMessage } from './upload-status-message.js';
+import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
 
 const documentBody = document.querySelector('body');
 const form = documentBody.querySelector('.img-upload__form');
@@ -24,8 +24,8 @@ const showForm = () => {
   documentBody.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   closeButton.addEventListener('click', onCloseButtonClick);
-  setupZoom();
-  setupEffect();
+  setupScaleImage();
+  setupEffectImage();
 };
 
 const hideForm = () => {
@@ -33,30 +33,28 @@ const hideForm = () => {
   documentBody.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   closeButton.removeEventListener('click', onCloseButtonClick);
-  removeZoom();
-  removeEffect();
+  removeScaleImage();
+  removeEffectImage();
   form.reset();
   pristine.reset();
-  resetScale();
-  resetEffect();
+  resetScaleImage();
+  resetEffectImage();
 };
 
 const extarctHastag = (value) => value.trim().split(' ').filter((element) => element.length > 0);
 
-const isHastagValid = (value) => extarctHastag(value).every((element) => HASTAG_REGEX.test(element));
+const isValidHastag = (value) => extarctHastag(value).every((element) => HASTAG_REGEX.test(element));
 
-const checkHastagLength = (value) => extarctHastag(value).length <= MAX_COUNT_HASHTAG;
+const isAmountHastag = (value) => extarctHastag(value).length <= MAX_COUNT_HASHTAG;
 
-const isHastagUnique = (value) => {
+const isUniqueHastag = (value) => {
   const oneCaseHastags = extarctHastag(value).map((element) => element.toLowerCase());
   return new Set(oneCaseHastags).size === oneCaseHastags.length;
 };
 
-
-pristine.addValidator(hashtagField, checkHastagLength, `Нельзя вводить более ${MAX_COUNT_HASHTAG} хештегов :-(`);
-pristine.addValidator(hashtagField, isHastagValid, 'Хештег невалиден :-(');
-pristine.addValidator(hashtagField, isHastagUnique, 'Хештеги не должны повторяться :-(');
-
+pristine.addValidator(hashtagField, isAmountHastag, `Нельзя вводить более ${MAX_COUNT_HASHTAG} хештегов :-(`);
+pristine.addValidator(hashtagField, isValidHastag, 'Хештег невалиден :-(');
+pristine.addValidator(hashtagField, isUniqueHastag, 'Хештеги не должны повторяться :-(');
 
 function onDocumentKeydown (evt) {
   if (evt.key === 'Escape' && document.activeElement !== hashtagField
@@ -68,8 +66,8 @@ function onDocumentKeydown (evt) {
 
 const onImageLoadingFieldChange = (evt) => {
   evt.preventDefault();
-  const selectedField = imageLoadingField.files[0];
-  if(selectedField.type.startsWith('image/') || /\.(jpg|jpeg|png|gif)$/i.test(selectedField.name)){
+  const selectedFiel = imageLoadingField.files[0];
+  if(selectedFiel.type.startsWith('image/') || /\.(jpg|jpeg|png|gif)$/i.test(selectedFiel.name)){
     showForm();
   }
 };
@@ -79,16 +77,16 @@ function onCloseButtonClick (evt) {
   hideForm();
 }
 
-const openEditModal = () => {
+const openEditPopup = () => {
   imageLoadingField.addEventListener('change', onImageLoadingFieldChange);
 };
 
-const lockSubmitButton = () => {
+const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
 };
 
-const unlockSubmitButton = () => {
+const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = SubmitButtonText.IDLE;
 };
@@ -98,7 +96,7 @@ const setFormSubmit = (onSuccess) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      lockSubmitButton();
+      blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
         .then(showSuccessMessage)
@@ -106,9 +104,9 @@ const setFormSubmit = (onSuccess) => {
           showErrorMessage();
         }
         )
-        .finally(unlockSubmitButton);
+        .finally(unblockSubmitButton);
     }
   });
 };
 
-export { openEditModal, setFormSubmit, hideForm, onDocumentKeydown };
+export { openEditPopup, setFormSubmit, hideForm, onDocumentKeydown };

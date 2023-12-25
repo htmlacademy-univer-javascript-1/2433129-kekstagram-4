@@ -1,5 +1,5 @@
 export const COUNT_PHOTOS = 25;
-export const COUNT_OF_COMMENTS_SHOWN = 5;
+export const COUNT_OF_COMMENTS = 5;
 export const MAX_COUNT_HASHTAG = 5;
 export const HASTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 export const ZOOM_STEP = 25;
