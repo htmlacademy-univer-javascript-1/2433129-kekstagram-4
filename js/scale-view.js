@@ -1,4 +1,4 @@
-import { PORTION_COMMENTS_SHOWN } from './constants.js';
+import { COUNT_OF_COMMENTS_SHOWN } from './constants.js';
 
 const body = document.querySelector('body');
 const bigPicture = body.querySelector('.big-picture');
@@ -25,7 +25,7 @@ let comments = null;
 const displayComments = () => {
   socialComments.innerHTML='';
 
-  commentsShown += PORTION_COMMENTS_SHOWN;
+  commentsShown += COUNT_OF_COMMENTS_SHOWN;
   if(commentsShown >= comments.length){
     commentsShown = comments.length;
     commentsLoader.classList.add('hidden');

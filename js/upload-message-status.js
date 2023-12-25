@@ -1,4 +1,4 @@
-import { onDocumentKeydown as onDocumentKeydownEditModal} from './edit-popup.js';
+import { onDocumentKeydown as onDocumentKeydownEditModal} from './modal-editor.js';
 
 const body = document.querySelector('body');
 const successMessage = body.querySelector('#success').content.querySelector('.success');

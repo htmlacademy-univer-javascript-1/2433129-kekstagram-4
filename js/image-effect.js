@@ -48,7 +48,7 @@ const effectMarvinButton = body.querySelector('#effect-marvin');
 const effectPhobosButton = body.querySelector('#effect-phobos');
 const effectHeatButton = body.querySelector('#effect-heat');
 
-const resetEffectImage = () => {
+const resetEffect = () => {
   img.style.filter = 'none';
   effectLevel.classList.add('hidden');
 };
@@ -84,7 +84,7 @@ const updateSlider = (minValue, maxValue, step, style, unit) => {
 
 const onEffectNoneButtonChange = (evt) => {
   evt.preventDefault();
-  resetEffectImage();
+  resetEffect();
 };
 
 const onEffectChromeButtonChange = (evt) => {
@@ -122,7 +122,7 @@ const onEffectHeatButtonChange = (evt) => {
     Effect.HEAT.step, Effect.HEAT.style, Effect.HEAT.unit);
 };
 
-const setupEffectImage = () => {
+const setupEffect = () => {
   effectNoneButton.addEventListener('change', onEffectNoneButtonChange);
   effectChromeButton.addEventListener('change', onEffectChromeButtonChange);
   effectSepiaButton.addEventListener('change', onEffectSepiaButtonChange);
@@ -131,7 +131,7 @@ const setupEffectImage = () => {
   effectHeatButton.addEventListener('change', onEffectHeatButtonChange);
 };
 
-const removeEffectImage = () => {
+const removeEffect = () => {
   effectNoneButton.removeEventListener('change', onEffectNoneButtonChange);
   effectChromeButton.removeEventListener('change', onEffectChromeButtonChange);
   effectSepiaButton.removeEventListener('change', onEffectSepiaButtonChange);
@@ -140,4 +140,4 @@ const removeEffectImage = () => {
   effectHeatButton.removeEventListener('change', onEffectHeatButtonChange);
 };
 
-export { resetEffectImage, setupEffectImage, removeEffectImage };
+export { resetEffect, setupEffect, removeEffect};

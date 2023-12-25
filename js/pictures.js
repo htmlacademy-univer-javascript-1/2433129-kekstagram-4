@@ -8,7 +8,6 @@ const displayPictures = (picutres) => {
     if(!thumbnail) {
       return;
     }
-    evt.preventDefault();
     const [picture] = picutres.filter((item) => item.id === Number(thumbnail.dataset.thumbnailId));
     showBigPicture(picture);
   });

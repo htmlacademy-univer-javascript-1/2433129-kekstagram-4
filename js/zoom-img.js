@@ -43,4 +43,4 @@ const removeZoom = () => {
   minusSizeButton.removeEventListener('click', onDecreaseSizeButtonCLick );
 };
 
-export { setupZoom as setupScaleImage, removeZoom, resetScale };
+export { setupZoom, removeZoom, resetScale };

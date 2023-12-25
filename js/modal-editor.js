@@ -1,8 +1,8 @@
 import { MAX_COUNT_HASHTAG, HASTAG_REGEX, SubmitButtonText } from './constants.js';
-import { resetEffectImage, setupEffectImage, removeEffectImage } from './image-effect.js';
-import { resetScaleImage, setupScaleImage, removeScaleImage } from './zoom-image.js';
+import { resetEffect, setupEffect, removeEffect } from './image-effect.js';
+import { resetScale, setupZoom, removeZoom } from './zoom-img.js';
 import { sendData } from './api.js';
-import { showSuccessMessage, showErrorMessage } from './upload-status-message.js';
+import { showSuccessMessage, showErrorMessage } from './upload-message-status.js';
 
 const documentBody = document.querySelector('body');
 const form = documentBody.querySelector('.img-upload__form');
@@ -24,8 +24,8 @@ const showForm = () => {
   documentBody.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   closeButton.addEventListener('click', onCloseButtonClick);
-  setupScaleImage();
-  setupEffectImage();
+  setupZoom();
+  setupEffect();
 };
 
 const hideForm = () => {
@@ -33,12 +33,12 @@ const hideForm = () => {
   documentBody.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   closeButton.removeEventListener('click', onCloseButtonClick);
-  removeScaleImage();
-  removeEffectImage();
+  removeZoom();
+  removeEffect();
   form.reset();
   pristine.reset();
-  resetScaleImage();
-  resetEffectImage();
+  resetScale();
+  resetEffect();
 };
 
 const extarctHastag = (value) => value.trim().split(' ').filter((element) => element.length > 0);
@@ -68,8 +68,8 @@ function onDocumentKeydown (evt) {
 
 const onImageLoadingFieldChange = (evt) => {
   evt.preventDefault();
-  const selectedFiel = imageLoadingField.files[0];
-  if(selectedFiel.type.startsWith('image/') || /\.(jpg|jpeg|png|gif)$/i.test(selectedFiel.name)){
+  const selectedField = imageLoadingField.files[0];
+  if(selectedField.type.startsWith('image/') || /\.(jpg|jpeg|png|gif)$/i.test(selectedField.name)){
     showForm();
   }
 };
